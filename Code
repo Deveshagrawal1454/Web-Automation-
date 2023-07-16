@@ -1,0 +1,37 @@
+const puppeteer = require('puppeteer');
+
+(async () => {
+  // Launch headful browser
+  const browser = await puppeteer.launch({ headless: false });
+  const page = await browser.newPage();
+
+  // Go to swap.defillama.com
+  await page.goto('https://swap.defillama.com');
+
+  // Fill the form
+  await page.type('#react-select-2-input input', 'Arbitrum One');
+  await page.type('input[type="text"]', '12');
+  await page.type('div.css-79elbk input', '0'); // To trigger the token selection
+
+  // Select token to sell (WBTC)
+  await page.waitForSelector('.chakra-button.css-qjhap button');
+  await page.click('.chakra-input css-s1d1f4 input');
+  await page.waitForSelector('.chakra-button.css-qjhap .token-option[data-symbol="WBTC"]');
+  await page.click('.chakra-button.css-qjhap .token-option[data-symbol="WBTC"]');
+
+  // Select token to buy (USDC)
+  await page.waitForSelector('.chakra-button.css-qjhap button');
+  await page.click('.chakra-input css-s1d1f4 input');
+  await page.waitForSelector('.chakra-button.css-qjhap .token-option[data-symbol="USDC"]');
+  await page.click('.chakra-button.css-qjhap .token-option[data-symbol="USDC"]');
+
+  // Select the second option in the "Select a route to perform a swap" section
+  await page.waitForSelector('.routeSelect .route-option:nth-child(2)');
+  await page.click('.routeSelect .route-option:nth-child(2)');
+
+  // Leave the browser window open
+  await page.waitForTimeout(60 * 60 * 1000); // Wait for 1 hour (you can change the timeout if needed)
+
+  // Close the browser
+  await browser.close();
+})();
