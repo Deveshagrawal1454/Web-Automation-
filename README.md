@@ -13,8 +13,8 @@
   
 1. Create a new project using Javascript/Typescript in NodeJS
 2. Integrate puppeteer library
-3. Use puppeteer to
-a. Launch headful browser and go t o swap.defillama.com
+3. Use puppeteer to <br>
+a. Launch headful browser and go t o swap.defillama.com<br>
 b. Fill the form
 - Enter "Arbitrum One" in the "chain" field
 - Enter "12" in "You Sell" field
